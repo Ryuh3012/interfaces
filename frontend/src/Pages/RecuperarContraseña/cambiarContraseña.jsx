@@ -1,41 +1,25 @@
 import { Button, Image, Input } from '@nextui-org/react';
-import LoginLayout from '../LoginLayout';
+
 import { useFormik } from "formik";
 import { Link, useNavigate } from 'react-router-dom'
 
-// import { loginValidate } from "../../segurity/Login/ValidateLogin.mjs";
-
-import img from "../../assets/img.jpg";
-import iujo from "../../assets/IUJO.gif";
 import axios from 'axios';
+import LoginLayout from '../../auth/LoginLayout';
 import Cookies from 'universal-cookie';
-import { useState } from 'react';
 
-const initialValues = { email: '' }
+const initialValues = { newClave: '' }
 
 const ClavePage = () => {
-    const [message, setMessage] = useState([])
-    const navegation = useNavigate()
 
-    const { errors, touched, handleBlur, handleSubmit, handleChange, values: { email } } = useFormik({
+    const cookis = new Cookies()
+    // console.log(cookis.get('user'))
+    const { errors, touched, handleBlur, handleSubmit, handleChange, values: { newClave } } = useFormik({
         initialValues,
         onSubmit: async (value) => {
             try {
+                const user =  cookis.get('user')
+                const { data } = await axios.post('http://localhost:3000/clave', { user: {value , user} })
 
-                // INGLES ESPAÑOOL ..................
-
-                const { data } = await axios.post('http://localhost:3000/recuperar', { user: value })
-                if (data?.length !== 0) {
-                    const cookis = new Cookies()
-
-                    cookis.remove('user')
-                    cookis.set('user', JSON.stringify(data.resp))
-                    setMessage(data.messager)
-                    setTimeout(() => {
-                        setMessage(null)
-                        return navegation('/')
-                    }, 3000);
-                }
 
             }
             catch ({ response: { data: { res } } }) {
@@ -53,32 +37,31 @@ const ClavePage = () => {
     return (
         <LoginLayout>
             <section className="flex justify-center items-center w-full h-full">
-                <div className="container flex w-4/5 h-[70%] justify-between bg-white rounded-3xl shadow-2xl">
-                    <Image src={img} className="h-full lg:w-full lg:block sm:hidden" />
-                    <div className="h-full w-[60%] shadow-2xl ">
+                <div className="container flex w-1/2 h-[70%] justify-between bg-white rounded-3xl shadow-2xl">
+                    <div className="h-full w-full shadow-2xl ">
                         <div className="flex flex-col h-full w-full rounded-3xl ">
-                            <div className="w-full flex justify-end p-5 px-3">
-                                <Image src={iujo} className="w-[150px]" />
-                            </div>
+
                             <div className="flex flex-col h-full w-full justify-center items-center">
                                 <div className="p-5 text-center">
-                                    <p className="text-xl font-semibold font-mono">Recuperar Contraseña</p>
+                                    <p className="text-xl font-semibold font-mono">Nueva Clave</p>
                                 </div>
-                                {message.length !== 0 ?
-                                    <div className="w-full bg-green-600 pl-4 text-white rounded-[3px] py-1">
-                                        <p> {message} </p>
-                                    </div> : null}
+                                {/* {errors.cedula && touched.cedula || errors.password && touched.password || errorInternal ?
+                                    <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
+                                        {(errors.usuario && touched.usuario) && (<p>{errors.usuario}</p>)}
+                                        {(errors.clave && touched.clave) && (<p>{errors.clave}</p>)}
+                                        {errorInternal && (<p>{errorInternal}</p>)}
+                                    </div> : null} */}
 
                                 <div className="w-full p-5">
                                     <form onSubmit={handleSubmit}>
                                         <div className="flex flex-col gap-2">
 
                                             <Input
-                                                type="email"
+                                                type="password"
                                                 variant='faded'
-                                                label="Correo"
-                                                name="email"
-                                                value={email}
+                                                label="Nueva contraseña"
+                                                name="newClave"
+                                                value={newClave}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 required={true}
