@@ -12,6 +12,7 @@ import Social from "../../components/formulary/StepperFormulary/Social";
 import Segurity from "../../components/formulary/StepperFormulary/Segurity";
 import LoginLayout from "../LoginLayout";
 import { Link, useNavigate, } from "react-router-dom";
+import { registroValidate } from "../../seguridad/registroValidate.mjs";
 
 
 const initialValues = { cedula: '', nombre: '', apellido: '', email: '', nacionalidad: '', fecha: '', pais: '', usuario: '', clave: '', segClave: '', preguntaUno: '', preguntaDos: "", preguntaTres: '', seguridadUno: '', seguridadDos: '', seguridadTres: '', facebook: '', instagram: '', x: '', tikTok: '' }
@@ -34,7 +35,7 @@ const RegisterPage = () => {
             }, 3000);
 
         },
-        // validate: (values) => validateParticipant({ values })
+        validate: (values) => registroValidate({ values })
 
 
     })
@@ -81,18 +82,32 @@ const RegisterPage = () => {
                                 handleSubmit, handleChange,
                                 values
                             }}>
-                                {errors.cedula && touched.cedula || errors.password && touched.password ?
+                                {errors.nombre && touched.nombre || errors.apellido && touched.apellido || errors.email && touched.email ||
+                                    errors.fecha && touched.fecha ||
+                                    errors.cedula && touched.cedula
+                                    || errors.usuario && touched.usuario
+                                    || errors.clave && touched.clave
+                                    || errors.segClave && touched.segClave
+                                    || errors.preguntaUno && touched.preguntaUno
+                                    || errors.preguntaDos && touched.preguntaDos
+                                    || errors.preguntaTres && touched.preguntaTres
+                                    || errors.seguridadUno && touched.seguridadUno
+                                    || errors.facebook && touched.facebook
+                                    || errors.instagram && touched.instagram
+                                    || errors.x && touched.x
+                                    || errors.tikTok && touched.tikTok ?
                                     <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
                                         {(errors.nombre && touched.nombre) && (<p>{errors.nombre}</p>)}
                                         {(errors.apellido && touched.apellido) && (<p>{errors.apellido}</p>)}
+                                        {(errors.apellido && touched.cedula) && (<p>{errors.cedula}</p>)}
                                         {(errors.email && touched.email) && (<p>{errors.email}</p>)}
                                         {(errors.fecha && touched.fecha) && (<p>{errors.fecha}</p>)}
                                         {(errors.usuario && touched.usuario) && (<p>{errors.usuario}</p>)}
                                         {(errors.clave && touched.clave) && (<p>{errors.clave}</p>)}
                                         {(errors.segClave && touched.segClave) && (<p>{errors.segClave}</p>)}
-                                        {(errors.PreguntaUno && touched.PreguntaUno) && (<p>{errors.PreguntaUno}</p>)}
-                                        {(errors.PreguntaDos && touched.PreguntaDos) && (<p>{errors.PreguntaDos}</p>)}
-                                        {(errors.PreguntaTres && touched.PreguntaTres) && (<p>{errors.PreguntaTres}</p>)}
+                                        {(errors.preguntaUno && touched.preguntaUno) && (<p>{errors.PreguntaUno}</p>)}
+                                        {(errors.preguntaDos && touched.preguntaDos) && (<p>{errors.PreguntaDos}</p>)}
+                                        {(errors.preguntaTres && touched.preguntaTres) && (<p>{errors.PreguntaTres}</p>)}
                                         {(errors.seguridadUno && touched.seguridadUno) && (<p>{errors.seguridadUno}</p>)}
                                         {(errors.facebook && touched.facebook) && (<p>{errors.facebook}</p>)}
                                         {(errors.instagram && touched.instagram) && (<p>{errors.instagram}</p>)}

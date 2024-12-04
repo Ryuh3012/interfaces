@@ -29,6 +29,7 @@ const User = () => {
                 <div className="lg:flex w-full gap-3">
                     <div className='flex flex-col w-full gap-2'>
                         <Input
+                            type='password'
                             name="clave"
                             label="Contraseña"
                             value={clave}
@@ -42,7 +43,7 @@ const User = () => {
                     </div>
                     <div className='flex flex-col w-full gap-2 sm:py-1'>
                         <Input
-                            type="text"
+                            type='password'
                             label="Confirme Su Contraseña"
                             name="segClave"
                             value={segClave}

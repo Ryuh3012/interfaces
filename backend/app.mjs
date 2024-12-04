@@ -7,6 +7,7 @@ import { connectdb } from "./src/db/connectdb.mjs";
 
 import authRouter from "./src/routers/authRoute.mjs"
 import paisesRouter from "./src/routers/paisesRoute.mjs"
+import newPassword from "./src/routers/recuperationPassword.mjs"
 import { createpaises } from "./src/libs/createpaises.mjs";
 ;
 
@@ -14,11 +15,12 @@ const app = express()
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-connectdb.connect()
-createpaises()
+// connectdb.connect()
+// createpaises()
 
 app.use(authRouter)
 app.use(paisesRouter)
+app.use(newPassword)
 
 
 app.listen(port, () => {

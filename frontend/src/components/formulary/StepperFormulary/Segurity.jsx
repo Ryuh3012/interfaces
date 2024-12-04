@@ -2,7 +2,11 @@ import { useContext } from "react";
 import { StepperContext } from "../../../contexts/StepperContext";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 
-const preguntas = ['¿Cuál es el segundo nombre de tu primo mayor?', '¿En qué ciudad se conocieron tus padres?', '¿Cuál era el apellido de tu profesora de tercero de primaria?', '¿A qué universidad intentaste entrar pero finalmente no fuiste?', '¿Con quién te diste tu primer beso?']
+const preguntas = ['¿Cuál es el segundo nombre de tu primo mayor?', 
+    '¿En qué ciudad se conocieron tus padres?', 
+    '¿Cuál era el apellido de tu profesora de tercero de primaria?', 
+    '¿A qué universidad intentaste entrar pero finalmente no fuiste?', 
+    '¿Con quién te diste tu primer beso?']
 
 const Segurity = () => {
     const { handleBlur, handleSubmit, handleChange, values: { preguntaUno, preguntaDos, preguntaTres, seguridadUno, seguridadDos, seguridadTres } } = useContext(StepperContext)

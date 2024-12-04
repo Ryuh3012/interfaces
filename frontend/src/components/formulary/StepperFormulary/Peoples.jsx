@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 
-const nacionali = ['', 'V', 'E']
+const nacionali = ['V-', 'E-']
 
 const Peoples = () => {
 
@@ -58,7 +58,7 @@ const Peoples = () => {
                     <div className="lg:flex w-[20%] gap-3">
                         <Select
                             name="nacionalidad"
-                            label='C.I'
+                            label='Nación'
                             value={nacionalidad}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -73,14 +73,14 @@ const Peoples = () => {
                         <Input
                             type="number"
                             name="cedula"
-                            label="Cedula"
+                            label="Cédula"
                             value={cedula}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce Tu Cedula"
+                            placeholder="Introduce Tu Cédula"
                         />
                     </div>
 
@@ -118,7 +118,7 @@ const Peoples = () => {
 
                 </div>
 
-                {nacionalidad == 'E' ?
+                {nacionalidad == 'E-' ?
 
                     <div className='flex flex-col w-full lg:gap-2 '>
                         <Select

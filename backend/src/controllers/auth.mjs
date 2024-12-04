@@ -7,7 +7,6 @@ export const singUp = async (req, res) => {
     const paises = pais.length == 0 ? null : pais
     try {
         const { rows: { idpersona } } = await connectdb.query('INSERT INTO personas(nacionalidad, cedula, nombre, fechadenacimiento, apellido, email, paisid) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING idpersona', [nacionalidad, cedula, nombre, fecha, apellido, email, paises])
-        console.log(idpersona);
 
         const redSocial = await connectdb.query(`INSERT INTO redessociales(redsocial, usuario, personaid) values('facebook', $1, $5), ('instagra', $2,$5), ('x (Antiguo twitter)',$3,$5),('tiktok', $4,$5)`, [facebook, instagram, x, tikTok, idpersona])
 
@@ -29,12 +28,14 @@ export const singIn = async (req, res) => {
     try {
 
         const { rows } = await connectdb.query('select usuario, clave from usuarios where usuario = $1', [usuario])
-        if (rows.length == 0) return res.status(400).json({ messager: 'Usuario o clave invalidos' })
-        console.log(rows[0].clave);
+
+        if (rows.length == 0) return res.status(400).json({ messager: 'Usuario o clave inválidos' })
+
         const matChPassword = await encryptionComparison(clave, rows[0].clave)
-        if (!matChPassword) return res.status(400).json({ messager: 'Usuario o clave invalidos' })
-        console.log(matChPassword);
-        res.status(200).json({ messager: 'Usuario Valido', user: rows[0].usuario })
+        
+        if (!matChPassword) return res.status(400).json({ messager: 'Usuario o clave inválidos' })
+
+        res.status(200).json({ messager: 'Usuario Válido', user: rows[0].usuario })
 
 
     } catch (error) {

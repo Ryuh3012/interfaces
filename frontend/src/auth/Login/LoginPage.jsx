@@ -11,6 +11,7 @@ import LoginLayout from "../LoginLayout";
 
 import img from "../../assets/img.jpg";
 import iujo from "../../assets/IUJO.gif";
+import { loginValidate } from "../../seguridad/validacionLogin.mjs";
 
 const initialValues = { usuario: '', clave: '' }
 
@@ -31,8 +32,10 @@ const LoginPage = () => {
                 console.log(data);
                 if (data?.length !== 0) {
                     const cookis = new Cookies()
+
                     cookis.remove('user')
                     cookis.set('user', JSON.stringify(data.message))
+
                     setMessage(data.messager)
                     setTimeout(() => {
                         setMessage(null)
@@ -48,7 +51,7 @@ const LoginPage = () => {
             }
 
         },
-        // validate: (values) => loginValidate({ values })
+        validate: values => loginValidate({ values })
 
     })
     return (
@@ -66,7 +69,7 @@ const LoginPage = () => {
                                     <p className="text-xl font-semibold font-mono">Bienvenido A La Coordinación de Extensión Profesional</p>
 
                                 </div>
-                                {errors.cedula && touched.cedula || errors.password && touched.password || errorInternal ?
+                                {errors.usuario && touched.usuario || errors.clave && touched.clave || errorInternal ?
                                     <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
                                         {(errors.usuario && touched.usuario) && (<p>{errors.usuario}</p>)}
                                         {(errors.clave && touched.clave) && (<p>{errors.clave}</p>)}
@@ -89,7 +92,7 @@ const LoginPage = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 required={true}
-                                                placeholder="Introduzca Tu Usuario"
+                                                placeholder="Introduce Tu Usuario "
                                             />
                                             <Input
                                                 type="password"
@@ -100,18 +103,18 @@ const LoginPage = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 required={true}
-                                                placeholder="Introduzca Su Usuario"
+                                                placeholder="Introduce Tu Contraseña"
                                             />
                                         </div>
                                         <div className="py-5">
-                                            <Button type="submit" className="bg-[#8C113E] text-slate-400 uppercase w-full p-6 rounded-xl font-semibold cursor-pointer hover:bg-[#6A2473] hover:text-white transition duration-2oo ease-in-out">
-                                                inciar Sesion
+                                            <Button type="submit" className="bg-[#8C113E] text-slate-400 uppercase w-full p-6 rounded-xl font-semibold cursor-pointer hover:bg-[#6A2473] text-white transition duration-2oo ease-in-out">
+                                                inciar Sesión
                                             </Button>
 
                                         </div>
                                         <div className="flex justify-between">
 
-                                            <p className="mt-5 text-center  opacity-60">¿No tienes una cuenta? <Link to={'/register'}>Registrate</Link></p>
+                                            <p className="mt-5 text-center  opacity-60">¿No tienes una cuenta? <Link to={'/register'}>Regístrate</Link></p>
                                             <p className="mt-5 text-center  opacity-60 "><Link to={'/recuperar'}>¿Olvidaste tu contraseña?</Link></p>
                                         </div>
 

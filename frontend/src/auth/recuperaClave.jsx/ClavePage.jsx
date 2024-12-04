@@ -19,7 +19,7 @@ const ClavePage = () => {
 
                 // INGLES ESPAÑOOL ..................
 
-                const { data } = await axios.post('http://localhost:3000/auth', { user: value })
+                const { data } = await axios.post('http://localhost:3000/recuperar', { user: value })
             }
             catch ({ response: { data: { res } } }) {
                 console.log(res);
