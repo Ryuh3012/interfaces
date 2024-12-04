@@ -1,4 +1,4 @@
-import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
+import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
 import { NavLink } from "react-router-dom"
 import Icon from "../../assets/icon2.png"
 
@@ -71,8 +71,8 @@ export const LayoutDashboard = ({ children }) => {
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Profile Actions" variant="flat">
                             <DropdownItem key="configurations">Configurations</DropdownItem>
-                            <DropdownItem key="logout" color="danger">
-                                Log Out
+                            <DropdownItem color="danger">
+                                <NavLink to={'/'}>salir</NavLink>
                             </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>

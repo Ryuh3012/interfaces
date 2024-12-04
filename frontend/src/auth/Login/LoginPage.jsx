@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 
 import axios from "axios";
-// import Cookies from 'universal-cookie';
+import Cookies from 'universal-cookie';
 
 import LoginLayout from "../LoginLayout";
 // import { loginValidate } from "../../segurity/Login/ValidateLogin.mjs";
@@ -12,12 +12,13 @@ import LoginLayout from "../LoginLayout";
 import img from "../../assets/img.jpg";
 import iujo from "../../assets/IUJO.gif";
 
-const initialValues = { cedula: '', password: '' }
+const initialValues = { usuario: '', clave: '' }
 
 const LoginPage = () => {
-    // const navegation = useNavigate()
+    const navegation = useNavigate()
 
     const [errorInternal, setErrorInternal] = useState(null)
+    const [message, setMessage] = useState([])
 
     const { errors, touched, handleBlur, handleSubmit, handleChange, values: { usuario, clave } } = useFormik({
 
@@ -26,16 +27,21 @@ const LoginPage = () => {
             try {
 
                 // INGLES ESPAÑOOL ..................
-
-                const { data } = await axios.post('http://localhost:3000/auth', { user: value })
-                // if (data?.length !== 0) {
-                //     const cookis = new Cookies()
-                //     cookis.set('users', JSON.stringify(data?.res[0]))
-                //     // return navegation('/index')
-                // }
+                const { data } = await axios.post('http://localhost:3000/api/auth/singIn', { user: value })
+                console.log(data);
+                if (data?.length !== 0) {
+                    const cookis = new Cookies()
+                    cookis.remove('user')
+                    cookis.set('user', JSON.stringify(data.message))
+                    setMessage(data.messager)
+                    setTimeout(() => {
+                        setMessage(null)
+                        return navegation('/index')
+                    }, 3000);
+                }
             }
-            catch ({ response: { data: { res } } }) {
-                setErrorInternal(res)
+            catch ({ response: { data: { messager } } }) {
+                setErrorInternal(messager)
                 setTimeout(() => {
                     setErrorInternal(null)
                 }, 3000);
@@ -45,7 +51,6 @@ const LoginPage = () => {
         // validate: (values) => loginValidate({ values })
 
     })
-
     return (
         <LoginLayout>
             <section className="flex justify-center items-center w-full h-full">
@@ -54,7 +59,7 @@ const LoginPage = () => {
                     <div className="h-full shadow-2xl ">
                         <div className="flex flex-col h-full rounded-3xl ">
                             <div className="w-full flex justify-end p-5 px-3">
-                                <Image src={iujo} className="w-[150px]" />1
+                                <Image src={iujo} className="w-[150px]" />
                             </div>
                             <div className="flex flex-col h-full justify-center items-center">
                                 <div className="p-5 text-center">
@@ -68,41 +73,47 @@ const LoginPage = () => {
                                         {errorInternal && (<p>{errorInternal}</p>)}
                                     </div> : null}
 
+                                {message.length !== 0 ?
+                                    (<p className="w-full bg-green-600 pl-4 text-black rounded-[3px] py-1">{message}</p>)
+                                    : null}
                                 <div className="w-full p-5">
                                     <form onSubmit={handleSubmit}>
                                         <div className="flex flex-col gap-2">
 
                                             <Input
-                                                type="number"
-                                                id="cedula"
+                                                type="text"
                                                 variant='faded'
                                                 label="Usuario"
                                                 name="usuario"
-                                                inputMode="numeric"
-                                                pattern="/[^0-9]*$/"
                                                 value={usuario}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 required={true}
+                                                placeholder="Introduzca Tu Usuario"
                                             />
                                             <Input
                                                 type="password"
                                                 variant='faded'
-                                                label="contraseña"
+                                                label="Contraseña"
                                                 name="clave"
                                                 value={clave}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 required={true}
+                                                placeholder="Introduzca Su Usuario"
                                             />
                                         </div>
                                         <div className="py-5">
-                                            <Button type="submit" className="bg-[#8C113E] text-slate-400 uppercase w-full p-6 rounded-xl font-semibold cursor-pointer  hover:bg-[#6A2473] hover:text-white transition duration-2oo ease-in-out">
+                                            <Button type="submit" className="bg-[#8C113E] text-slate-400 uppercase w-full p-6 rounded-xl font-semibold cursor-pointer hover:bg-[#6A2473] hover:text-white transition duration-2oo ease-in-out">
                                                 inciar Sesion
                                             </Button>
 
                                         </div>
-                                        <p className="mt-5 text-center  opacity-60">¿No tienes una cuenta? <Link to={'/register'}>Registrate</Link></p>
+                                        <div className="flex justify-between">
+
+                                            <p className="mt-5 text-center  opacity-60">¿No tienes una cuenta? <Link to={'/register'}>Registrate</Link></p>
+                                            <p className="mt-5 text-center  opacity-60 "><Link to={'/recuperar'}>¿Olvidaste tu contraseña?</Link></p>
+                                        </div>
 
                                     </form>
 

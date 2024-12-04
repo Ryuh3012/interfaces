@@ -20,8 +20,7 @@ const Peoples = () => {
     }, []);
     return (
         <form onSubmit={handleSubmit}>
-            <div className="flex justify-center items-center">
-
+            <div className="flex justify-center items-center p-1">
                 <p className="text-2xl fon">Datos Personales</p>
             </div>
             <div className="flex flex-col justify-center items-center py-1 gap-y-2 ms:flex-col">
@@ -37,7 +36,7 @@ const Peoples = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce El Nombre"
+                            placeholder="Introduce Tu Nombre"
                         />
                     </div>
                     <div className='flex flex-col w-full gap-2 sm:py-1'>
@@ -51,7 +50,7 @@ const Peoples = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce El Apellido"
+                            placeholder="Introduce Tu Apellido"
                         />
                     </div>
                 </div>
@@ -81,7 +80,7 @@ const Peoples = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce La Cedula"
+                            placeholder="Introduce Tu Cedula"
                         />
                     </div>
 
@@ -99,7 +98,6 @@ const Peoples = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce El Apellido"
                         />
 
                     </div>
@@ -114,7 +112,7 @@ const Peoples = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce El Correo"
+                            placeholder="Introduce Tu Correo"
                         />
                     </div>
 

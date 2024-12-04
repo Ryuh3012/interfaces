@@ -9,7 +9,7 @@ const User = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center p-1">
                 <p className="text-2xl font-serif font-semibold">Datos Del Usuario</p>
             </div>
             <div className="flex flex-col justify-center items-center py-1 gap-y-2 ms:flex-col">

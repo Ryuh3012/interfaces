@@ -9,7 +9,7 @@ export const createQuestions = async () => {
         if (rows.length > 0) return;
 
         const values = await Promise.all([
-            connectdb.query(`create table personas(idPersona serial primary key not null,nacionalidad varchar(1),cedula char(11) unique, nombre varchar(40), apellido varchar(40), email text, paisId int);`),
+            connectdb.query(`create table personas(idPersona serial primary key not null,nacionalidad varchar(1),cedula char(11) unique, nombre varchar(40), apellido varchar(40), email text, FechaDeNacimiento date, paisId int);`),
             connectdb.query(`create table redesSociales(idRedesSociales serial primary key not null, redSocial varchar(19), usuario varchar(40), personaId int);`),
             connectdb.query(`create table paises(idPais serial primary key not null, pais text);`),
             connectdb.query(`create table usuarios(idUsuario serial primary key not null, usuario varchar(20), clave text, personaId int, preguntaDeSeguridadId int);`),

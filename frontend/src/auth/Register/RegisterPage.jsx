@@ -11,20 +11,27 @@ import User from "../../components/formulary/StepperFormulary/User";
 import Social from "../../components/formulary/StepperFormulary/Social";
 import Segurity from "../../components/formulary/StepperFormulary/Segurity";
 import LoginLayout from "../LoginLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, } from "react-router-dom";
 
 
-const initialValues = { cedula: '', nombre: '', apellido: '', email: '', nacionalidad: '', fecha: '', pais: '', usuario: '', clave: '', segClave: '', PreguntaUno: '', PreguntaDos: '', PreguntaTres: ' ', seguridadUno: '', seguridadDos: '', seguridadTres: '', facebook: '', instagram: '', x: '', tikTok: '' }
+const initialValues = { cedula: '', nombre: '', apellido: '', email: '', nacionalidad: '', fecha: '', pais: '', usuario: '', clave: '', segClave: '', preguntaUno: '', preguntaDos: "", preguntaTres: '', seguridadUno: '', seguridadDos: '', seguridadTres: '', facebook: '', instagram: '', x: '', tikTok: '' }
 const RegisterPage = () => {
+    const navegation = useNavigate()
+
     const [currentStep, setCurrentStep] = useState(1);
+    const [messager, setMessager] = useState([]);
 
     const { errors, touched, handleBlur, handleSubmit, handleChange, values } = useFormik({
 
         initialValues,
         onSubmit: async (values) => {
-            const { data } = await axios.post('http://localhost:3000/api/auth', { data: values })
+            const { data: { messager } } = await axios.post('http://localhost:3000/api/auth/singUp', { data: values })
 
-            console.log(data);
+            setMessager(messager)
+            setTimeout(() => {
+                setMessager(null)
+                return navegation('/')
+            }, 3000);
 
         },
         // validate: (values) => validateParticipant({ values })
@@ -91,13 +98,10 @@ const RegisterPage = () => {
                                         {(errors.instagram && touched.instagram) && (<p>{errors.instagram}</p>)}
                                         {(errors.x && touched.x) && (<p>{errors.x}</p>)}
                                         {(errors.tikTok && touched.tikTok) && (<p>{errors.tikTok}</p>)}
-
-
-
-
-
                                     </div> : null}
-
+                                {messager.length != 0 ?
+                                    (<p className="w-full bg-green-600 pl-4 text-black rounded-[3px] py-1">{messager}</p>)
+                                    : null}
                                 {displayStep(currentStep)}
                             </StepperContext.Provider>
                         </div>

@@ -9,7 +9,7 @@ const Segurity = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center p-1">
 
                 <p className="text-2xl font-serif font-semibold">Pregunta De Seguridad</p>
             </div>
@@ -43,7 +43,7 @@ const Segurity = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce La Primera Pregunta de seguridad"
+                            placeholder="Introduce Tu Primera Pregunta de seguridad"
                         />
                     </div>
                 </div>
@@ -69,7 +69,7 @@ const Segurity = () => {
                     <div className='flex flex-col w-full gap-2 sm:py-1'>
                         <Input
                             type="text"
-                            label="Tercera Pregunta de seguridad"
+                            label="Segunda Pregunta de seguridad"
                             name="seguridadDos"
                             value={seguridadDos}
                             onChange={handleChange}
@@ -77,7 +77,7 @@ const Segurity = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce La tercera Pregunta De Seguridad"
+                            placeholder="Introduce Tu Segunda Pregunta De Seguridad"
 
                         />
                     </div>
@@ -111,7 +111,7 @@ const Segurity = () => {
                             required={true}
                             variant="faded"
                             color="secondary"
-                            placeholder="Introduce La tercera Pregunta De Seguridad"
+                            placeholder="Introduce Tu tercera Pregunta De Seguridad"
 
                         />
                     </div>
