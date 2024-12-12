@@ -1,39 +1,26 @@
-import { Resend } from 'resend';
+import { connectdb } from "../db/connectdb.mjs";
+import { transporter } from "../hooks/mailer.mjs";
 
-const resend = new Resend('re_PWWmusNE_HsR8uiwLeHN62Qpi5agRNg6k');
-
-export const RecupererPassword = async (req, res) => {
-    const { email } = req?.body.user
-
-    const resend = new Resend('re_PWWmusNE_HsR8uiwLeHN62Qpi5agRNg6k');
-
-    const { data, error } = await resend.emails.send({
-        from: 'onboarding@resend.dev',
-        to: email,
-        subject: 'Hello World2',
-        html: '<p>http://localhost:5173/cambiar</p>'
-    });;
-    if (error) {
-        return console.error({ error });
-    }
-
-    return res.status(200).json({
-        messager: "Le llegare un Mensaje al correo",
-        resp: email
-    });
-
-}
-export const newPassword = async (req, res) => {
-    const { value:{newClave}, user } = req?.body.user
-
-    try {
-        const { rows } = await connectdb.query("update usuarios set clave=$1 where nombre= $2", [newClave,user]);
-        return res.status(200).json({
-            messager: rows
-        });
-    } catch (error) {
-        console.log(error);
-    }
+export const recuperationPassword = async (req, res) => {
 
 
+    const data = req?.body.user.email
+
+    const { rows } = await connectdb.query(`select personas.email, preguntasdeseguridad.pregunta, preguntasdeseguridad.repuesta  from personas 
+        inner join usuarios on usuarios.personaid = personas.idpersona
+        inner join preguntasdeseguridad on preguntasdeseguridad.usuarioid = usuarios.idusuario
+        where email =$1`, [data])
+
+    if (rows.length == 0) return res.status(400).json({ messager: 'El usuario es invalido' })
+
+    const info = await transporter.sendMail({
+        from: '¿Has olvidado tu contraseña? <alejandrojmr03@gmail.com>', // sender address
+        to: rows[0].email, // list of receivers
+        // subject: , // Subject line
+        text: "¿Has olvidado tu contraseña?", // plain text body
+        html: `<b>Por favor haga clic en el siguiente enlace  para completar el proceso.<br/>
+            <a href='http://localhost:5173/cambiar'>recuperar contraseña</a>
+        `, // html body
+    })
+    res.status(200).json({ messager: 'Le Llegara Un Mensaje A Su Correo' })
 }

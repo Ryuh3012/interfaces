@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 
-const nacionali = ['V-', 'E-']
+const nacionali = ['V', 'E']
 
 const Peoples = () => {
 
@@ -118,7 +118,7 @@ const Peoples = () => {
 
                 </div>
 
-                {nacionalidad == 'E-' ?
+                {nacionalidad == 'E' ?
 
                     <div className='flex flex-col w-full lg:gap-2 '>
                         <Select

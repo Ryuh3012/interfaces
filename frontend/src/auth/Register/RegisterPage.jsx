@@ -91,11 +91,7 @@ const RegisterPage = () => {
                                     || errors.preguntaUno && touched.preguntaUno
                                     || errors.preguntaDos && touched.preguntaDos
                                     || errors.preguntaTres && touched.preguntaTres
-                                    || errors.seguridadUno && touched.seguridadUno
-                                    || errors.facebook && touched.facebook
-                                    || errors.instagram && touched.instagram
-                                    || errors.x && touched.x
-                                    || errors.tikTok && touched.tikTok ?
+                                    || errors.seguridadUno && touched.seguridadUno ?
                                     <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
                                         {(errors.nombre && touched.nombre) && (<p>{errors.nombre}</p>)}
                                         {(errors.apellido && touched.apellido) && (<p>{errors.apellido}</p>)}
@@ -109,10 +105,6 @@ const RegisterPage = () => {
                                         {(errors.preguntaDos && touched.preguntaDos) && (<p>{errors.PreguntaDos}</p>)}
                                         {(errors.preguntaTres && touched.preguntaTres) && (<p>{errors.PreguntaTres}</p>)}
                                         {(errors.seguridadUno && touched.seguridadUno) && (<p>{errors.seguridadUno}</p>)}
-                                        {(errors.facebook && touched.facebook) && (<p>{errors.facebook}</p>)}
-                                        {(errors.instagram && touched.instagram) && (<p>{errors.instagram}</p>)}
-                                        {(errors.x && touched.x) && (<p>{errors.x}</p>)}
-                                        {(errors.tikTok && touched.tikTok) && (<p>{errors.tikTok}</p>)}
                                     </div> : null}
                                 {messager.length != 0 ?
                                     (<p className="w-full bg-green-600 pl-4 text-black rounded-[3px] py-1">{messager}</p>)

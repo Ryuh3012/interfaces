@@ -9,14 +9,16 @@ import authRouter from "./src/routers/authRoute.mjs"
 import paisesRouter from "./src/routers/paisesRoute.mjs"
 import newPassword from "./src/routers/recuperationPassword.mjs"
 import { createpaises } from "./src/libs/createpaises.mjs";
+import { createQuestions } from "./src/libs/createTable.mjs";
 
 
 const app = express()
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-// connectdb.connect()
-// createpaises()
+connectdb.connect()
+// createQuestions()
+createpaises()
 
 app.use(authRouter)
 app.use(paisesRouter)

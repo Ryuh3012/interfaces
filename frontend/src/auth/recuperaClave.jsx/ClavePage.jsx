@@ -15,19 +15,19 @@ const initialValues = { email: '' }
 
 const ClavePage = () => {
     const [message, setMessage] = useState([])
+    const [errorInternal, setErrorInternal] = useState([]);
     const navegation = useNavigate()
 
-    const { errors, touched, handleBlur, handleSubmit, handleChange, values: { email } } = useFormik({
+    const { handleBlur, handleSubmit, handleChange, values: { email } } = useFormik({
         initialValues,
         onSubmit: async (value) => {
             try {
 
                 // INGLES ESPAÑOOL ..................
 
-                const { data } = await axios.post('http://localhost:3000/recuperar', { user: value })
+                const { data } = await axios.post('http://localhost:3000/api/password/recuperar', { user: value })
                 if (data?.length !== 0) {
                     const cookis = new Cookies()
-
                     cookis.remove('user')
                     cookis.set('user', JSON.stringify(data.resp))
                     setMessage(data.messager)
@@ -38,17 +38,15 @@ const ClavePage = () => {
                 }
 
             }
-            catch ({ response: { data: { res } } }) {
-                console.log(res);
-                // setErrorInternal(res)
-                // setTimeout(() => {
-                //     setErrorInternal(null)
-                // }, 3000);
+            catch ({ response: { data: { messager } } }) {
+                console.log(messager);
+                setErrorInternal(messager)
+                setTimeout(() => {
+                    setErrorInternal([])
+                }, 3000);
             }
 
         },
-        // validate: (values) => loginValidate({ values })
-
     })
     return (
         <LoginLayout>
@@ -68,9 +66,15 @@ const ClavePage = () => {
                                     <div className="w-full bg-green-600 pl-4 text-white rounded-[3px] py-1">
                                         <p> {message} </p>
                                     </div> : null}
+                                {errorInternal.length !== 0 ?
+                                    <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
+                                        <p> {errorInternal} </p>
+                                    </div> : null}
 
                                 <div className="w-full p-5">
                                     <form onSubmit={handleSubmit}>
+
+
                                         <div className="flex flex-col gap-2">
 
                                             <Input

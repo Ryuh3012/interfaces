@@ -5,6 +5,7 @@ export const registroValidate = ( { values } ) => {
     if (values.apellido.length === 0) errors.apellido = 'Debes introducir Tu Apellido'
     if (values.cedula.length === 0) errors.cedula = 'Debes introducir Tu Cédula'
     if (values.fecha.length === 0) errors.fecha = 'Debes introducir Tu Fecha de Nacimiento'
+    if (values.fecha >= '2005-12-31' ) errors.fecha = 'No Cumple Con La Edad Requeridad'
     if (values.email.length === 0) errors.email = 'Debes introducir Tu Correo'
     
     console.log(errors)

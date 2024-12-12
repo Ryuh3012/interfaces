@@ -21,7 +21,6 @@ const Social = () => {
                             value={facebook}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            required={true}
                             variant="faded"
                             color="secondary"
                             placeholder="Introduce El Nombre Del Facebook "
@@ -34,7 +33,6 @@ const Social = () => {
                             value={instagram}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            required={true}
                             variant="faded"
                             color="secondary"
                             placeholder="Introduce El Nombre Del instagram"
@@ -49,7 +47,6 @@ const Social = () => {
                             value={x}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            required={true}
                             variant="faded"
                             color="secondary"
                             placeholder="Introduce El Nombre Del x (Antiguo twitter)"
@@ -63,7 +60,6 @@ const Social = () => {
                             value={tikTok}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            required={true}
                             variant="faded"
                             color="secondary"
                             placeholder="Introduce El Nombre Del Tiktok"
