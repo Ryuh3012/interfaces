@@ -84,14 +84,12 @@ const RegisterPage = () => {
                             }}>
                                 {errors.nombre && touched.nombre || errors.apellido && touched.apellido || errors.email && touched.email ||
                                     errors.fecha && touched.fecha ||
-                                    errors.cedula && touched.cedula
-                                    || errors.usuario && touched.usuario
-                                    || errors.clave && touched.clave
-                                    || errors.segClave && touched.segClave
-                                    || errors.preguntaUno && touched.preguntaUno
-                                    || errors.preguntaDos && touched.preguntaDos
-                                    || errors.preguntaTres && touched.preguntaTres
-                                    || errors.seguridadUno && touched.seguridadUno ?
+                                    errors.cedula && touched.cedula ||
+                                    errors.usuario && touched.usuario ||
+                                    errors.clave && touched.clave ||
+                                    errors.segClave && touched.segClave ||
+                                    errors.preguntaUno && touched.preguntaUno ||
+                                    errors.seguridadUno && touched.seguridadUno ?
                                     <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
                                         {(errors.nombre && touched.nombre) && (<p>{errors.nombre}</p>)}
                                         {(errors.apellido && touched.apellido) && (<p>{errors.apellido}</p>)}
@@ -101,10 +99,8 @@ const RegisterPage = () => {
                                         {(errors.usuario && touched.usuario) && (<p>{errors.usuario}</p>)}
                                         {(errors.clave && touched.clave) && (<p>{errors.clave}</p>)}
                                         {(errors.segClave && touched.segClave) && (<p>{errors.segClave}</p>)}
-                                        {(errors.preguntaUno && touched.preguntaUno) && (<p>{errors.PreguntaUno}</p>)}
-                                        {(errors.preguntaDos && touched.preguntaDos) && (<p>{errors.PreguntaDos}</p>)}
-                                        {(errors.preguntaTres && touched.preguntaTres) && (<p>{errors.PreguntaTres}</p>)}
                                         {(errors.seguridadUno && touched.seguridadUno) && (<p>{errors.seguridadUno}</p>)}
+                                        {(errors.preguntaUno && touched.preguntaUno) && (<p>{errors.preguntaUno}</p>)}
                                     </div> : null}
                                 {messager.length != 0 ?
                                     (<p className="w-full bg-green-600 pl-4 text-black rounded-[3px] py-1">{messager}</p>)

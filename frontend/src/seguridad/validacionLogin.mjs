@@ -1,6 +1,5 @@
 export const loginValidate = ( { values } ) => {
     let errors = {}
-    console.log(values)
     if (values.usuario.length === 0) errors.usuario = 'Debes Introducir Tu Usuario'
     if (values.clave.length === 0) errors.clave = 'Debes introducir la Contraseña'
     

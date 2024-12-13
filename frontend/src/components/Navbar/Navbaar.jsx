@@ -1,10 +1,10 @@
 import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
-import { NavLink } from "react-router-dom"
 import Icon from "../../assets/icon2.png"
+import { NavLink } from "react-router-dom"
 
 export const LayoutDashboard = ({ children }) => {
     return (
-        <div className="bg-[#d9dbe0] ">
+        <div className="bg-[#d9dbe0]  text-white h-screen">
             <Navbar isBordered
                 className="bg-[#2A398C] text-white "
             >
@@ -72,12 +72,13 @@ export const LayoutDashboard = ({ children }) => {
                         <DropdownMenu aria-label="Profile Actions" variant="flat">
                             <DropdownItem key="configurations">Configurations</DropdownItem>
                             <DropdownItem color="danger">
-                                <NavLink to={'/'}>salir</NavLink>
+                                <NavLink to="/"> salir </NavLink>
                             </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                 </NavbarContent>
             </Navbar>
+            {children}
         </div>
     )
 }

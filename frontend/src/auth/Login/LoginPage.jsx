@@ -2,6 +2,8 @@ import { Button, Image, Input } from "@nextui-org/react";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom'
+import CryptoJS from "crypto-js";
+
 
 import axios from "axios";
 import Cookies from 'universal-cookie';
@@ -21,21 +23,20 @@ const LoginPage = () => {
     const [errorInternal, setErrorInternal] = useState(null)
     const [message, setMessage] = useState([])
 
+
     const { errors, touched, handleBlur, handleSubmit, handleChange, values: { usuario, clave } } = useFormik({
 
         initialValues,
         onSubmit: async (value) => {
             try {
-
                 // INGLES ESPAÑOOL ..................
                 const { data } = await axios.post('http://localhost:3000/api/auth/singIn', { user: value })
-                console.log(data);
                 if (data?.length !== 0) {
                     const cookis = new Cookies()
-
+                    const cripto = CryptoJS.AES.encrypt(JSON.stringify(data.user), 'hola').toString()
+                 
                     cookis.remove('user')
-                    cookis.set('user', JSON.stringify(data.message))
-
+                    cookis.set('user', JSON.stringify(cripto))
                     setMessage(data.messager)
                     setTimeout(() => {
                         setMessage(null)
@@ -77,7 +78,7 @@ const LoginPage = () => {
                                     </div> : null}
 
                                 {message.length !== 0 ?
-                                    (<p className="w-full bg-green-600 pl-4 text-black rounded-[3px] py-1">{message}</p>)
+                                    (<p className="w-full bg-green-600 pl-4 text-white rounded-[3px] py-1">{message}</p>)
                                     : null}
                                 <div className="w-full p-5">
                                     <form onSubmit={handleSubmit}>
