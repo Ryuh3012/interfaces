@@ -1,84 +1,68 @@
-import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
+import Cookies from 'universal-cookie';
+
+import { Button, Image, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
 import Icon from "../../assets/icon2.png"
 import { NavLink } from "react-router-dom"
 
+
+
 export const LayoutDashboard = ({ children }) => {
+    const cookies = new Cookies();
+    const user = cookies.get('user')
+
+
+
     return (
-        <div className="bg-[#d9dbe0]  text-white h-screen">
-            <Navbar isBordered
-                className="bg-[#2A398C] text-white "
-            >
-                <Image src={Icon} width={70} />
+        <div className="flex flex-col h-screen bg-[#d9dbe0]">
+            <Navbar isBordered className="bg-[#2A398C] text-white ">
+
+                <Image src={Icon} width={50} />
                 <NavbarBrand>
-                    <p className="font-semibold ">COORDINACIÓN DE EXTENSIÓN PROFESIONAL</p>
+                    <p className="font-semibold text-sm ">COORDINACIÓN DE EXTENSIÓN PROFESIONAL</p>
                 </NavbarBrand>
 
                 <NavbarContent className="hidden sm:flex gap-5" justify="end">
                     <NavbarItem>
-                        <NavLink end to="/home" className={({ isActive }) => isActive ? 'bg-[#F29441] rounded p-2' : 'font-light hover:rounded p-2'} >
+                        <NavLink end to="/" className={({ isActive }) => isActive ? 'text-lg font-bold' : 'font-light'} >
                             Inicio
                         </NavLink>
                     </NavbarItem>
-                    <Dropdown>
-                        <NavbarItem>
-                            <DropdownTrigger>
-                                <Button
-                                    className=" text-white font-light rounded p-2"
-                                    radius="sm"
-                                    variant="light"
-                                >
-                                    Features
-                                </Button>
-                            </DropdownTrigger>
-                        </NavbarItem>
-                        <DropdownMenu>
-                            <DropdownItem>
-                                <NavLink end to="/cursos" className={({ isActive }) => isActive ? 'font-bold text-sm rounded p-2' : 'font-light'} >
-                                    Cursos
-                                </NavLink>
-                            </DropdownItem>
-                            <DropdownItem>
-                                <NavLink end to="/asistencia" className={({ isActive }) => isActive ? 'font-bold text-sm p-2' : 'font-light'} >
-                                    Asistencia
-                                </NavLink>
-                            </DropdownItem>
-                            <DropdownItem>
-                                <NavLink end to="/facilitador" className={({ isActive }) => isActive ? 'font-bold text-sm p-2' : 'font-light'} >
-                                    Facilitadores
-                                </NavLink>
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
                     <NavbarItem>
-                        <NavLink end to="/home" className={({ isActive }) => isActive ? 'bg-[#F29441] rounded p-2' : 'font-light hover:rounded p-2'} >
-                            Inicio
+                        <NavLink end to="/blog" className={({ isActive }) => isActive ? 'text-lg font-bold' : 'font-light '} >
+                            blog
                         </NavLink>
                     </NavbarItem>
-                </NavbarContent>
+                    <NavLink end to="/nosotros" className={({ isActive }) => isActive ? 'text-lg font-bold ' : 'font-light'} >
+                        Nosotros
+                    </NavLink>
+                    <NavbarItem>
+                        <NavLink end to="/contact" className={({ isActive }) => isActive ? 'text-lg font-bold' : 'font-light'} >
+                            Contáctanos
+                        </NavLink>
+                    </NavbarItem>
 
-                <NavbarContent as="div" justify="end">
-                    <Dropdown placement="bottom-end">
-                        <DropdownTrigger>
-                            <Avatar
-                                isBordered
-                                as="button"
-                                className="transition-transform"
-                                color="secondary"
-                                name="Jason Hughes"
-                                size="sm"
-                                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                            />
-                        </DropdownTrigger>
-                        <DropdownMenu aria-label="Profile Actions" variant="flat">
-                            <DropdownItem key="configurations">Configurations</DropdownItem>
-                            <DropdownItem color="danger">
-                                <NavLink to="/"> salir </NavLink>
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
                 </NavbarContent>
+                {!user ?
+                    <NavbarItem end >
+                        <Button>
+                            <NavLink to="/contactos">
+                                Inicio session
+                            </NavLink>
+                        </Button>
+                    </NavbarItem>
+                    :
+                    <NavbarItem>
+                        <Button className="text-white font-light rounded p-2" radius="sm" variant="light">
+                            {user.nombre}
+                        </Button>
+                    </NavbarItem>
+                }
+
             </Navbar>
+
             {children}
+
+
         </div>
     )
 }
