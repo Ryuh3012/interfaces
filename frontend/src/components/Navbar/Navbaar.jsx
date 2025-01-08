@@ -1,8 +1,9 @@
 import Cookies from 'universal-cookie';
 
-import { Button, Image, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
+import { Button, Image, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
 import Icon from "../../assets/icon2.png"
 import { NavLink } from "react-router-dom"
+import Asident from '../asiden/Asident';
 
 
 
@@ -23,7 +24,7 @@ export const LayoutDashboard = ({ children }) => {
 
                 <NavbarContent className="hidden sm:flex gap-5" justify="end">
                     <NavbarItem>
-                        <NavLink end to="/" className={({ isActive }) => isActive ? 'text-lg font-bold' : 'font-light'} >
+                        <NavLink end to="/" className={({ isActive }) => isActive ? 'text-lg font-bold ' : 'font-light'} >
                             Inicio
                         </NavLink>
                     </NavbarItem>
@@ -45,7 +46,7 @@ export const LayoutDashboard = ({ children }) => {
                 {!user ?
                     <NavbarItem end >
                         <Button>
-                            <NavLink to="/contactos">
+                            <NavLink to="/login">
                                 Inicio session
                             </NavLink>
                         </Button>
@@ -59,10 +60,15 @@ export const LayoutDashboard = ({ children }) => {
                 }
 
             </Navbar>
+            <div className='flex flex-col h-screen p-4 overflow-hidden'>
+                <div className='flex p-2 h-screen overflow-auto bg-white'>
 
-            {children}
-
-
+                    {children}
+                    <div className="w-[25%]">
+                        <Asident />
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -5,7 +5,6 @@ import { connectdb } from "../db/connectdb.mjs";
 export const getConsul = async (req, res) => {
     try {
         const { user } = req.params;
-        console.log(user);
 
         const { rows } = await connectdb.query(`select redessociales.redsocial, redessociales.usuario from usuarios
         inner join personas on usuarios.personaid = personas.idpersona

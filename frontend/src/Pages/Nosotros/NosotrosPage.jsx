@@ -1,48 +1,34 @@
+import { Image } from '@nextui-org/react';
+
 import { LayoutDashboard } from '../../components/Navbar/Navbaar';
+
+import logo from '../../assets/img3.jpg';
 
 const NosotrosPage = () => {
     return (
         <LayoutDashboard>
-            <section className='w-full h-full p-4 overflow-auto '>
-                <article className='flex flex-col bg-slate-50 gap-5 px-5'>
-                    <div className='flex justify-center items-center p-2'>
+            <section className=' flex w-full h-full p-4  '>
+                <article className='flex bg-slate-50 w-full gap-5 px-5 rounded-lg'>
+                    <div>
+                        <div className='flex justify-center items-center p-'>
 
-                        <p className='text-2xl font-semibold'>
-                            Historia del IUJO
-                        </p>
+                            <p className='text-2xl font-bold'>
+                                coordinación de extensión profesional
+                            </p>
+                        </div>
+                        <div className='flex flex-col gap-3 p-2 ' >
+                            <Image src={logo} width={900} height={500} />
+                            <p className='font-medium text-2xl  '>
+                                La Unidad de Extensión Profesional del IUJO A.C., es una instancia de servicios profesionales, técnicos, pedagógicos y de producción, enmarcada en la dimensión de extensión universitaria y orientada al desarrollo de procesos de integración entre la triada universidad, empresas y comunidades.
+                            </p>
+
+                            <p className='font-medium text-2xl clear-both'>
+                                Con autonomía funcional, de gestión autofinanciada y rentable, su objetivo es ofrecer servicios, pedagógicos, técnicos y de producción, competitivos en el mercado que permitan generar recursos y aporta al desarrollo local.
+
+                            </p>
+
+                        </div>
                     </div>
-                    <p className='text-xl font-medium' >
-                        Y hacemos un poco de historia…
-                    </p>
-                    <p className='text-lg'>
-
-                        La Creación del Instituto Universitario “Jesús Obrero” (IUJO), fue autorizada por Decreto presidencial, el 4 de mayo de 1973, para ofrecer las especialidades de Electrónica y Electrotecnia a nivel de Técnico Superior. Su apertura fue diferida debido al replanteamiento de las prioridades educativas de la Compañía de Jesús, en función de las realidades y necesidades de amplios sectores de la población a los que no llegaban los servicios educativos. Después de un largo proceso de revisión y ajustes, en el año 1997, estando de director nacional de Fe y Alegría Jesús Orbegozo (Sacerdote Jesuita) y ante la eminente necesidad de atender la demanda educativa de los jóvenes bachilleres de sectores de menores recursos, se ve la opción de abrir un instituto, es así como las autoridades de ese entonces de la Compañía de Jesús y en especial el Sacerdote antes mencionado vuelven a la propuesta de “Jesús Obrero”, instituto ubicado en Catia, con amplia trayectoria en la formación de bachilleres técnicos de alta calidad y en donde desde hacía dos décadas se pensó en un Instituto Técnico a nivel de Educación Superior (IUJO).
-
-                        Para la apertura del IUJO, la Compañía de Jesús decidió que: el ente rector sería la asociación Civil Fe y Alegría, la oferta académica se ampliaría y para ello solicitó ante el Ministerio del Poder Popular para la Educación Superior, incluir las carreras de: Educación Mención Educación Integral, Mención Educación Preescolar, Mención Educación Especial, Informática, Administración de Empresas y Mecánica. En cuanto a su ubicación física compartiría en horario alterno los espacios del Instituto Técnico “Jesús Obrero” en el sector oeste de la ciudad de Caracas, en la misma zona donde en la década de los 50 el Padre Vélaz (S.J.) abrió la primera escuela de Fe y Alegría. La apertura del Instituto se realizó el 29 de Septiembre de 1998.
-
-                        La Misión del Instituto según los planteamientos de Fe y Alegría, quedó plasmada en el documento constitutivo y reza así: “Formar Educadores y tecnólogos que requiera la misma Fe y Alegría, la Educación venezolana y el desarrollo social y económico del País. De esta forma, una vez más a través del IUJO, Fe y Alegría reitera la opción por los sectores más necesitados para realizar su acción educativa y de promoción social. Dicho Instituto pondrá especial atención en la Formación Integral de la Persona, en una alta calidad en la capacitación profesional y en el compromiso por enfrentar el reto de la construcción de una sociedad más justa y fraterna, una formación integral, con basamento Ético y Humanístico, tomando en cuenta, tanto el aspecto personal, como el comunitario, sin perder de vista una concepción cristiana de la vida. (Documento protocolizado ante la Oficina Subalterna de Registro del Municipio Sucre Estado Miranda, el 20 de mayo de 1997, bajo el Nº 21, tomo 24).
-
-                        Fe y Alegría, bajo la dirección para ese entonces de Jesús Orbegozo S.J, asume el reto con tres propósitos de índole social: Contribución al cambio social y a la liberación popular. Defensa de los derechos de los pobres y de su dignidad cívica y cristiana y preparación de un pueblo capaz de regirse a si mismo con talento y con acierto. Y es así, bajo estas premisas como nace el Instituto Universitario Jesús Obrero (IUJO), en unas de las zonas más populosas de la gran Caracas, en los Flores de Catia.
-
-                        También es oportuno reseñar para esta fecha de apertura del Instituto, la adecuación de la infraestructura del centro, para ello, se contó con diferentes apoyos, entre los cuales es importante recordar: en primer lugar al personal directivo, docente, administrativo y obreros del Instituto Técnico Jesús Obrero, así como a sus estudiantes, a ellos, cuales hermanos mayores les tocó compartir sus espacios, aceptar al hermano que llega, pues, aunque traiga nuevas ideas y alegrías, no deja de causar ciertas situaciones que ameritan reacomodos y hasta incomodidad, para ellos un gran reconocimiento y agradecimiento. La sociedad Civil expresada a través de empresas como: CANTV, RCTV, Banesco, Fundación Polar, Carvajal y Compañía, UCAB entre otras, aportaron recursos económicos que permitió brindarle en corto plazo a los estudiantes una biblioteca cómoda y bien dotada, equipos informáticos y técnicos de última generación así como aulas y talleres amplios, dignos y los aportes económicos del Estado para la cancelación de la nómina del personal que laboraba.
-
-                        A escasos años de la apertura del primer instituto de Educación Superior y una vez egresada en Mayo del 2.001 la primera promoción de Técnicos Superiores en las menciones de Informática, Contaduría, Educación Mención Educación Integral y Mención Educación Preescolar, Fe y Alegría recibe otras solicitudes para abrir centros educativos en zonas similares en donde está ubicado el primer Instituto. Es así como surge la propuesta de ampliación del Instituto Universitario “Jesús Obrero” en Petare, sector Mesuca, de esta forma Fe y Alegría se adentra en uno de los sectores más populares del Municipio Sucre del Estado Miranda, su objetivo principal, brindar atención a la población, comunidad que presenta grandes necesidades y demandas sobre áreas críticas dentro de su desarrollo humano y social. Esta ampliación se circunscribe dentro del marco de un convenio entre Fe y Alegría y el apoyo de otras organizaciones como Fundación Polar, la Compañía de Jesús y el apoyo económico del Gobierno Vasco y la familia Mendoza.
-
-                        Luego de dos años de negociaciones con la Fundación Polar, Fe y Alegría logró el donativo del terreno y desde Mayo 2002 se vienen realizando una serie de trabajos conjuntamente con la comunidad de Mesuca. Desde sus inicios los espacios que aquí se han logrado, se han transformado en sedes de diferentes eventos deportivos y culturales, nace el Consejo Deportivo de Petare el cual sirve de impulsor para otros consejos similares en diferentes sectores de esta populosa parroquia Mirandina.
-
-                        En el 2003, por iniciativa de la Compañía de Jesús se comienzan las gestiones en Fe y Alegría para la apertura de otra extensión del IUJO, estará ubicada en unos terrenos de la Compañía en la ciudad de Barquisimeto, esta nueva extensión va dirigida exclusivamente para los (as) jóvenes de bajos recursos, impulsado por los mismos principios de la sede principal ubicada en Caracas. La construcción de los edificios sedes y dotación fueron financiados por la empresa Banesco. Es importante reseñar que algunos recursos para el equipamiento de laboratorios y algunas aulas se logró por los aportes de la asociación “Amigos del IUJO”. El 28 de Diciembre del 2005 se obtiene el permiso de funcionamiento por parte del Ministerio del Poder Popular para la educación Superior y en Febrero del 2006 abre sus puertas a miles de bachilleres.
-
-                        Para Mayo 2004, se le solicita a Fe y Alegría su apoyo con el objetivo principal de brindarle a los jóvenes bachilleres de San Francisco Estado Zulia, un Instituto de Educación Técnica a nivel Superior. La Alcaldía de este Municipio, a través de su Alcalde hace llegar esta solicitud y a la vez presta su apoyo para que en corto tiempo sea construida la edificación que daría albergue a un Instituto de educación Técnica Superior, cuyo nombre sería , el mismo del Municipio: “San Francisco”. Se suma a este esfuerzo la empresa Banesco quienes con su aporte económico financian parte de las edificaciones.
-
-                        En el año 2005, se le presenta nuevamente a Fe y Alegría otra solicitud, asumir una escuela Técnica en Guanarito Estado Portuguesa, ante esa propuesta, el Padre Jesús Orbegozo (director de Fe y Alegría), el Licenciado Julio Jiménez (director de Educación Superior de Fe y Alegría) asumen junto a su equipo el estudio de factibilidad de la propuesta y así después de varias asambleas con campesinos del sector, personal de la Alcaldía del Municipio, educadores y ganaderos, se toma la determinación de no incidir sobre la escuela técnica, más si se dará respuesta a la solicitud de formación de calidad a nivel superior. De esta forma se inician los trabajos para la creación de la extensión del IUJO “Nuestra Señora de la Paz de Guanarito”. A partir de este momento no se hizo esperar el aporte por parte de los campesinos y ganaderos, cada uno de ellos de acuerdo a sus posibilidades fue colocando su aporte, la Alcaldía del Municipio así como el Señor Antonio Medina (fallecido), Antonio Medina (hijo), señora Elina Sansón de Pariente (fallecida), familia Svoboda y señor Manuel Monsalve aportaron junto a la gobernadora profesora Antonia Muñoz, los recursos necesarios para la adquisición y adecuación del terreno y la construcción de la infraestructura,
-
-                        En Agosto 2008, se logra el permiso de apertura del Instituto para la extensión Petare y la ampliación de Guanarito ) Estado Portuguesa el gran sueño del personal que presta sus servicios en estos Institutos es la puesta en marcha, ver sus aulas, pasillos y grandes canchas llenas de miles de jóvenes. Para ello ya se cuenta con edificaciones dotadas totalmente con mobiliario de primera calidad y canchas deportivas. Para Enero 2009 abren su 1er semestre con las carreras de Educación Especial y Electrónica y Electrotecnia en Petare y Mecánica Industrial, producción Agropecuaria y Tecnología Forestal en Guanarito; aún están en espera de la aprobación de las carreras de Informática y Administración de Empresas.
-
-                        Hoy a 11 años de haberse abierto el primer Instituto en Catia y desde sus extensiones en Zulia y Lara le hemos brindado al país 4.863 Profesionales dispuestos a construir esa Patria Grande que nos merecemos y sabemos nace con una educación enmarcada en un Proceso de humanización de los alumnos, que les permita desarrollar todos sus talentos en sus ámbitos: personal, socio-comunitario, deportivo, cultural y profesional. Una Educación contextualizada con su realidad local, regional y nacional, una Educación, con un modelo de gestión en donde la participación sea un proceso pedagógico de desarrollo personal y social, que de paso a la autogestión y a la cogestión .(J. Orbegozo S.J.)
-
-                        No podemos cerrar este breve recuento histórico sin tener presente que desde sus inicios el IUJO, ha contado con un equipo de trabajo que liderizados por el Padre Jesús Orbegozo (S.J) y profesionales como: lic. Julio Jiménez, lic. Judith Benítez, lic. Maritza Barrios, Dr.Charles Lázary, Soc. Laura Contreras, Ing. Manuel Aristorena (S.J), entre otros, no escatimaron esfuerzo en proponer una Educación Inclusiva, en donde los elementos centrales de formación para estos jóvenes sea la construcción de la ciudadanía, la formación de líderes cultores de la paz, la negociación y el diálogo, cuyo gran reto es: “ la Preparación de un Pueblo capaz de regirse a si mismo con Talento y con Acierto”. (José María Vélaz S.J.)
-                    </p>
-
                 </article>
 
             </section>

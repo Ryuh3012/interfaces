@@ -7,6 +7,7 @@ import ClavePage from './auth/recuperaClave.jsx/ClavePage';
 import CambiarContraseña from './Pages/RecuperarContraseña/cambiarContraseña';
 import ContactoPage from './Pages/contacto/ContactoPage';
 import NosotrosPage from './Pages/Nosotros/NosotrosPage';
+import Blog from './Pages/blog/blog';
 
 
 
@@ -17,6 +18,7 @@ const Navegation = () => {
                 <Route element={<Index />} path='/' />
                 <Route element={<ContactoPage />} path='/contact' />
                 <Route element={<NosotrosPage />} path='/nosotros' />
+                <Route element={<Blog />} path='/blog' />
                 <Route element={<LoginPage />} path='/Login' />
                 <Route element={<RegisterPage />} path='/register' />
                 <Route element={<ClavePage />} path='/recuperar' />

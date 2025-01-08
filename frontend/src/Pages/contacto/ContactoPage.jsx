@@ -11,7 +11,7 @@ import wp from '../../assets/icons8-whatsapp.svg'
 const ContactoPage = () => {
     return (
         <LayoutDashboard>
-            <section className='w-full h-full p-4 overflow-auto'>
+            <section className='flex  flex-col w-full h-full p-4 overflow-clip'>
                 <article className='flex flex-col bg-slate-50 px-5'>
                     <p className='text-3xl font-semibold '>Contacto</p>
                     <article className="flex flex-col p-2 ">
@@ -36,14 +36,13 @@ const ContactoPage = () => {
                         </div>
                     </article>
                     <article className='flex  gap-10'>
-                        <div>
-
+                        <div >
                             <div >
                                 <p className="text-2xl font-bold"> Correo Electrónico:</p>
                             </div>
                             <div className='flex justify-start items-center p-2 '>
                                 <Image src={correo} width={30} />
-                                <p className='hover:text-red-500'>
+                                <p className='hover:text-red-500 px-1'>
                                     <a href="mailto:catiadireccion@iujo.edu.ve">catiadireccion@iujo.edu.ve </a>
                                 </p>
                             </div>
@@ -54,7 +53,7 @@ const ContactoPage = () => {
                             </div>
                             <div className='flex justify-start items-center p-2 '>
                                 <Image src={Telefono} width={30} />
-                                <p >
+                                <p className='px-1'>
                                     (+58-212) 862.71.72
                                 </p>
                             </div>
@@ -65,8 +64,8 @@ const ContactoPage = () => {
                             </div>
                             <div className='flex justify-start items-center p-2 '>
                                 <Image src={wp} width={30} />
-                                <p className='hover:text-red-500'>
-                                    <a href="https://wa.me/584120340692">(+58-412) 0340692</a>
+                                <p className='hover:text-red-500 px-1'>
+                                    <a href="https://wa.me/584127569790">(+58-412) 7569790</a>
                                 </p>
                             </div>
                         </div>

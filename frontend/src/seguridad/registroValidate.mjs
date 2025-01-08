@@ -15,7 +15,7 @@ export const registroValidate = ({ values }) => {
     if (values.fecha < '1954-12-31') errors.fecha = 'No Cumple Con La Edad Requeridad'
     if (values.email.length === 0) errors.email = 'Debes introducir Tu Correo'
     if (values.nombre.length === 0) errors.usuario = 'Debes introducir Tu Usuario'
-    if (values.usuario) errors.usuario = 'Debes introducir Tu Usuario'
+    if (values.usuario.length === 0) errors.usuario = 'Debes introducir Tu Usuario'
     if (values.clave.length === 0) errors.clave = 'Debes introducir Tu Contraseña'
     if (values.clave.segClave === 0) errors.segClave = 'Debes introducir Tu Contraseña'
     if (values.segClave !== values.clave) errors.segClave = 'Debes Ser Igual A La Contraseña'

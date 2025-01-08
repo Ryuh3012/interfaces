@@ -1,6 +1,6 @@
 import bcryptjs from "bcryptjs";
 
-export const encryption = async (password) => {
+export const encryptions = async (password) => {
 
     const salt = await bcryptjs.genSalt(5)
     return await bcryptjs.hash(password, salt)
