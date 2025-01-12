@@ -1,39 +1,63 @@
 import { Button, Image, Input } from '@nextui-org/react';
 
 import { useFormik } from "formik";
-import { Link, useNavigate } from 'react-router-dom'
+import { data, Link, useNavigate, useNavigation } from 'react-router-dom'
+import CryptoJS from "crypto-js";
+
 
 import axios from 'axios';
 import LoginLayout from '../../auth/LoginLayout';
 import Cookies from 'universal-cookie';
 import { newPassword } from '../../seguridad/newPassword.mjs';
+import { useState } from 'react';
 
 const initialValues = { newClave: '', repitClave: '' }
 
 const ClavePage = () => {
+
+    const [messager, setMessager] = useState([]);
+    const [ErrorInternal, setErrorInternal] = useState([]);
+    const navegation = useNavigate()
+
 
     const cookis = new Cookies()
     const { errors, touched, handleBlur, handleSubmit, handleChange, values: { newClave, repitClave } } = useFormik({
         initialValues,
         onSubmit: async (value) => {
             try {
-                const user = cookis.get('user')
-                // const { data } = await axios.post('http://localhost:3000/api/password/recuperar', { user: { value, user } })
 
 
+                const token = cookis.get('token')
+                const bytes = CryptoJS.AES.decrypt(token, 'hola');
+                const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+
+                const { data } = await axios.put('http://localhost:3000/reset-passowrd', { newPassword: value.newClave }, {
+                    headers: {
+                        'Authorization': decryptedData
+                    }
+                })
+                if (data.length !== 0) {
+                    setMessager(data.msg)
+                    setTimeout(() => {
+                        setMessager([])
+                        return navegation('/login')
+
+                    }, 3000);
+                }
+            } catch ({ response: { data: { msg } } }) {
+                setErrorInternal(msg)
+                setTimeout(() => {
+                    setErrorInternal([])
+                    navegation('/login')
+                }, 3000);
             }
-            catch ({ response: { data: { res } } }) {
-                console.log(res);
-                // setErrorInternal(res)
-                // setTimeout(() => {
-                //     setErrorInternal(null)
-                // }, 3000);
-            }
+
 
         },
         validate: (values) => newPassword({ values })
 
     })
+
     return (
         <LoginLayout>
             <section className="flex justify-center items-center w-full h-full">
@@ -46,19 +70,30 @@ const ClavePage = () => {
                                 <div className="p-5 text-center">
                                     <p className="text-xl font-semibold font-mono">Nueva Clave</p>
                                 </div>
-                                {errors.newClave && touched.newClave || errors.repitClave && touched.repitClave ?
+                                {errors.newClave && touched.newClave || errors.repitClave && touched.repitClave || ErrorInternal.length !== 0 ?
 
-                                    <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
+                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-danger-600 bg-danger-50 ">
                                         {(errors.newClave && touched.newClave) && (<p>{errors.newClave}</p>)}
                                         {(errors.repitClave && touched.repitClave) && (<p>{errors.repitClave}</p>)}
+                                        {(ErrorInternal) && (<p>{ErrorInternal}</p>)}
 
                                     </div>
 
+                                    : null}
+                                {messager.length !== 0 ?
+                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-success-700 dark:text-success bg-success-50">
+                                        <p>
+                                            {messager}
+                                        </p>
+                                    </div>
                                     : null}
                                 <div className="w-full p-5">
 
                                     <form onSubmit={handleSubmit}>
                                         <div className="lg:flex w-full gap-3">
+
+
+
                                             <div className='flex flex-col w-full gap-2'>
                                                 <Input
                                                     type="password"

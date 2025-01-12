@@ -15,11 +15,11 @@ export const newPersons = async (nacionalidad, cedula, nombre, fecha, apellido, 
     return rows[0].idpersona;
 }
 
-export const findOnePerson = async (cedula) => {
+export const findOnePerson = async ({ cedula, email }) => {
 
     const query = {
-        text: `select *from personas where cedula = $1`,
-        values: [cedula]
+        text: `select * from personas where cedula = $1 or email = $2`,
+        values: [cedula, email]
     }
 
     const { rows } = await connectdb.query(query)

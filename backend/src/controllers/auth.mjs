@@ -1,19 +1,20 @@
-import { encryptionComparison, encryptions } from "../libs/cryter.mjs";
 
+import { encryptionComparison, encryptions } from "../hooks/cryter.mjs";
+import { generateToken } from "../hooks/generToken.mjs";
 import { findOneAuth, newAuths } from "../models/authModels.mjs";
 import { findOnePerson, newPersons } from "../models/personasModels.mjs";
 import { redes } from "../models/redSocialModels.mjs";
 import { Securitys } from "../models/SegurityModels.mjs";
 
 export const singUp = async (req, res) => {
-    const { cedula, nombre, apellido, email, nacionalidad, fecha, pais, usuario, clave, preguntaUno, preguntaDos, preguntaTres, seguridadUno, seguridadDos, seguridadTres, facebook, instagram, x, tikTok } = req?.body
+    const { cedula, nombre, apellido, email, nacionalidad, fecha, pais, usuario, clave, preguntaUno, preguntaDos, preguntaTres, seguridadUno, seguridadDos, seguridadTres, facebook, instagram, x, tikTok, rol } = req?.body.data
     const paises = pais.length === 0 ? null : pais
 
     try {
 
-        const getPerson = await findOnePerson(cedula)
+        const getPerson = await findOnePerson(cedula, email)
 
-        if (getPerson) return res.status(401).json({ messager: 'La persona ya existe' })
+        if (getPerson) return res.status(401).json({ messager: 'El usuario ya existe' })
 
         const newPerson = await newPersons(nacionalidad, cedula, nombre, fecha, apellido, email, paises)
 
@@ -22,13 +23,14 @@ export const singUp = async (req, res) => {
         if (getAuth) return res.status(4001).json({ messager: 'El usuario ya existe' })
 
         const encryption = await encryptions(clave)
+
         const newAuth = await newAuths({ usuario, clave: encryption, persona: newPerson })
 
+        const registerToken = await generateToken({ cedula, rol });
+        
         let red;
-        if (facebook && instagram && x && tikTok) {
-            red = await redes({ facebook, instagram, x, tikTok, persona: newPerson })
+        if (facebook && instagram && x && tikTok) red = await redes({ facebook, instagram, x, tikTok, persona: newPerson })
 
-        }
 
         const security = await Securitys({ preguntaUno, preguntaDos, preguntaTres, seguridadUno, seguridadDos, seguridadTres, usuario: newAuth })
 

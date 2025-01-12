@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { recuperationPassword } from "../controllers/recuperationPassword.mjs";
+import { recoverPassword, resetPassword } from "../controllers/recuperationPassword.mjs";
+import { verifytokenMiddleware } from "../middlewares/verifyTokenMilddleware.mjs";
 
 
 const route = Router()
 
-route.post('/api/password/recuperar', recuperationPassword)
-// route.post('/api/password/newPassowrd', newPassword)
+route.post('/renover/:email', recoverPassword)
+route.put('/reset-passowrd', [verifytokenMiddleware, resetPassword])
 
 export default route

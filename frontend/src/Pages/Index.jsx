@@ -52,7 +52,6 @@ const Index = () => {
 
 
                     </section>
-                    
                 </div>
             </div>
 

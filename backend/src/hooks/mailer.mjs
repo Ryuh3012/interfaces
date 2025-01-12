@@ -1,16 +1,13 @@
 import nodemailer from "nodemailer";
+import { passwordAuth } from "../config/config.mjs";
 
 export const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
-    secure: true, // true for port 465, false for other ports
+    secure: true, 
     auth: {
         user: "alejandrojmr03@gmail.com",
-        pass: "ezem uazu azcv cyfg",
+        pass: passwordAuth,
     },
 });
 
-transporter.verify(()=>{
-
-    console.log('ready for send emails');
-})

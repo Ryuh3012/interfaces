@@ -9,44 +9,50 @@ import img from "../../assets/img.jpg";
 import iujo from "../../assets/IUJO.gif";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import CryptoJS from "crypto-js";
+
 import { useState } from 'react';
 
 const initialValues = { email: '' }
 
 const ClavePage = () => {
-    const [message, setMessage] = useState([])
+    const [messager, setMessager] = useState([])
     const [errorInternal, setErrorInternal] = useState([]);
     const navegation = useNavigate()
 
     const { handleBlur, handleSubmit, handleChange, values: { email } } = useFormik({
         initialValues,
-        onSubmit: async (value) => {
+        onSubmit: async ({ email }) => {
             try {
-
                 // INGLES ESPAÑOOL ..................
-
-                const { data } = await axios.post('http://localhost:3000/api/password/recuperar', { user: value })
+                const { data } = await axios.post(`http://localhost:3000/renover/${email}`)
                 if (data?.length !== 0) {
-                    const cookis = new Cookies()
-                    cookis.remove('user')
-                    cookis.set('user', JSON.stringify(data.resp))
-                    setMessage(data.messager)
-                    setTimeout(() => {
-                        setMessage(null)
-                        return navegation('/')
-                    }, 3000);
-                }
+                    const cokis = new Cookies()
 
+                    if (cokis.set('token')) cokis.remove('token')
+
+                    const cripto = CryptoJS.AES.encrypt(JSON.stringify(data.token), 'hola').toString()
+
+                    cokis.set('token', JSON.stringify(cripto))
+
+                    setMessager(data.msg)
+                    setTimeout(() => {
+                        setMessager([])
+                        return navegation('/login')
+                    }, 3000);
+
+                }
             }
-            catch ({ response: { data: { messager } } }) {
-                console.log(messager);
-                setErrorInternal(messager)
+            catch ({ response: { data: { msg } } }) {
+                console.log(msg);
+                setErrorInternal(msg)
                 setTimeout(() => {
                     setErrorInternal([])
+                    return navegation('/login')
                 }, 3000);
             }
 
-        },
+        }
     })
     return (
         <LoginLayout>
@@ -62,12 +68,15 @@ const ClavePage = () => {
                                 <div className="p-5 text-center">
                                     <p className="text-xl font-semibold font-mono">Recuperar Contraseña</p>
                                 </div>
-                                {message.length !== 0 ?
-                                    <div className="w-full bg-green-600 pl-4 text-white rounded-[3px] py-1">
-                                        <p> {message} </p>
+                                {messager.length !== 0 ?
+
+                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-success-700 dark:text-success bg-success-50">
+
+                                        <p> {messager} </p>
                                     </div> : null}
                                 {errorInternal.length !== 0 ?
-                                    <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
+                                    <div className="flex  flex-col w-full justify-center items-center py-1 pl-4 text-danger-600 dark:text-danger-500 bg-danger-50 dark:bg-danger-50/50 ">
+
                                         <p> {errorInternal} </p>
                                     </div> : null}
 
@@ -96,7 +105,9 @@ const ClavePage = () => {
 
                                         </div>
                                         <div className='flex justify-center items-center h-full w-full '>
-                                            <p className="mt-5 text-center opacity-60 hover:rounded hover:border-2 hover:border-slate-500 hover:p-2"><Link to={'/'}>atras</Link></p>
+                                            <Link to={'/login'}>
+                                                <Button className="mt-5 text-center opacity-60   hover:-translate-y-1">atras</Button>
+                                            </Link>
                                         </div>
                                     </form>
 

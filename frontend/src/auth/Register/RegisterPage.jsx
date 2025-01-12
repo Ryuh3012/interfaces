@@ -20,19 +20,28 @@ const RegisterPage = () => {
     const navegation = useNavigate()
 
     const [currentStep, setCurrentStep] = useState(1);
-    const [messager, setMessager] = useState([]);
+    const [messager, setMessager] = useState('');
+    const [errorInternal, setErrorInternal] = useState('');
 
     const { errors, touched, handleBlur, handleSubmit, handleChange, values } = useFormik({
 
         initialValues,
         onSubmit: async (values) => {
-            const { data: { messager } } = await axios.post('http://localhost:3000/api/auth/singUp', { data: values })
+            try {
+                const { data: { messager } } = await axios.post('http://localhost:3000/api/auth/singUp', { data: values })
+                setMessager(messager)
+                setTimeout(() => {
+                    setMessager('')
+                    return navegation('/login')
+                }, 3000);
 
-            setMessager(messager)
-            setTimeout(() => {
-                setMessager(null)
-                return navegation('/')
-            }, 3000);
+            }
+            catch ({ response: { data: { messager } } }) {
+                setErrorInternal(messager)
+                setTimeout(() => {
+                    setErrorInternal(null)
+                }, 3000);
+            }
 
         },
         validate: (values) => registroValidate({ values })
@@ -89,11 +98,12 @@ const RegisterPage = () => {
                                     errors.clave && touched.clave ||
                                     errors.segClave && touched.segClave ||
                                     errors.preguntaUno && touched.preguntaUno ||
-                                    errors.seguridadUno && touched.seguridadUno ?
-                                    <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
+                                    errors.seguridadUno && touched.seguridadUno
+                                    || errorInternal ?
+                                    <div className="flex flex-col w-full px-1 justify-center items-center py-1 pl-4 text-danger-600 dark:text-danger-500 bg-danger-50 dark:bg-danger-50/50 ">
                                         {(errors.nombre && touched.nombre) && (<p>{errors.nombre}</p>)}
                                         {(errors.apellido && touched.apellido) && (<p>{errors.apellido}</p>)}
-                                        {(errors.apellido && touched.cedula) && (<p>{errors.cedula}</p>)}
+                                        {(errors.cedula && touched.cedula) && (<p>{errors.cedula}</p>)}
                                         {(errors.email && touched.email) && (<p>{errors.email}</p>)}
                                         {(errors.fecha && touched.fecha) && (<p>{errors.fecha}</p>)}
                                         {(errors.usuario && touched.usuario) && (<p>{errors.usuario}</p>)}
@@ -101,14 +111,21 @@ const RegisterPage = () => {
                                         {(errors.segClave && touched.segClave) && (<p>{errors.segClave}</p>)}
                                         {(errors.seguridadUno && touched.seguridadUno) && (<p>{errors.seguridadUno}</p>)}
                                         {(errors.preguntaUno && touched.preguntaUno) && (<p>{errors.preguntaUno}</p>)}
+                                        {errorInternal && (<p>{errorInternal}</p>)}
                                     </div> : null}
+
                                 {messager.length != 0 ?
-                                    (<p className="w-full bg-green-600 pl-4 text-black rounded-[3px] py-1">{messager}</p>)
+                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-success-700 dark:text-success bg-success-50">
+
+                                        <p>
+                                            {messager}
+                                        </p>
+                                    </div>
                                     : null}
                                 {displayStep(currentStep)}
                             </StepperContext.Provider>
                         </div>
-                        <p className="mt-5 text-center  opacity-60">Ya tienes una cuenta? <Link to={'/'} >Inicia sesión</Link></p>
+                        <p className="mt-5 text-center py1 opacity-60">Ya tienes una cuenta? <Link className="hover:text-red-700" to={'/login'} >Inicia sesión</Link></p>
 
                     </div>
 
@@ -118,8 +135,8 @@ const RegisterPage = () => {
                         steps={steps}
                     />
                 </section>
-            </div>
-        </LoginLayout>
+            </div >
+        </LoginLayout >
 
     );
 }

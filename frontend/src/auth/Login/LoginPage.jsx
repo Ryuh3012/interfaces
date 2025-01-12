@@ -20,8 +20,8 @@ const initialValues = { usuario: '', clave: '' }
 const LoginPage = () => {
     const navegation = useNavigate()
 
-    const [errorInternal, setErrorInternal] = useState(null)
-    const [message, setMessage] = useState([])
+    const [errorInternal, setErrorInternal] = useState('')
+    const [message, setMessage] = useState('')
 
 
     const { errors, touched, handleBlur, handleSubmit, handleChange, values: { usuario, clave } } = useFormik({
@@ -34,13 +34,13 @@ const LoginPage = () => {
                 if (data?.length !== 0) {
                     const cookis = new Cookies()
                     const cripto = CryptoJS.AES.encrypt(JSON.stringify(data.user), 'hola').toString()
-                 
+
                     cookis.remove('user')
                     cookis.set('user', JSON.stringify(cripto))
                     setMessage(data.messager)
                     setTimeout(() => {
-                        setMessage(null)
-                        return navegation('/index')
+                        setMessage('')
+                        return navegation('/')
                     }, 3000);
                 }
             }
@@ -71,14 +71,26 @@ const LoginPage = () => {
 
                                 </div>
                                 {errors.usuario && touched.usuario || errors.clave && touched.clave || errorInternal ?
-                                    <div className="w-full bg-red-600 pl-4 text-white rounded-[3px] py-1">
+                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-danger-600 bg-danger-50 ">
+
                                         {(errors.usuario && touched.usuario) && (<p>{errors.usuario}</p>)}
                                         {(errors.clave && touched.clave) && (<p>{errors.clave}</p>)}
                                         {errorInternal && (<p>{errorInternal}</p>)}
-                                    </div> : null}
+                                    </div>
+                                    : null}
 
                                 {message.length !== 0 ?
-                                    (<p className="w-full bg-green-600 pl-4 text-white rounded-[3px] py-1">{message}</p>)
+                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-success-700 dark:text-success bg-success-50">
+                                        <p>
+                                            {message}
+                                        </p>
+                                    </div>
+                                    : null}   {message.length !== 0 ?
+                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-success-700 dark:text-success bg-success-50">
+                                        <p>
+                                            {message}
+                                        </p>
+                                    </div>
                                     : null}
                                 <div className="w-full p-5">
                                     <form onSubmit={handleSubmit}>
@@ -108,15 +120,15 @@ const LoginPage = () => {
                                             />
                                         </div>
                                         <div className="py-5">
-                                            <Button type="submit" className="bg-[#8C113E] text-slate-400 uppercase w-full p-6 rounded-xl font-semibold cursor-pointer hover:bg-[#6A2473] text-white transition duration-2oo ease-in-out">
+                                            <Button type="submit" className="bg-[#8C113E] text-slate-400 uppercase w-full p-6 rounded-xl font-semibold cursor-pointer hover:bg-[#6A2473] transition duration-2oo ease-in-out hover:text-white ">
                                                 inciar Sesión
                                             </Button>
 
                                         </div>
                                         <div className="flex justify-between">
 
-                                            <p className="mt-5 text-center  opacity-60">¿No tienes una cuenta? <Link to={'/register'}>Regístrate</Link></p>
-                                            <p className="mt-5 text-center  opacity-60 "><Link to={'/recuperar'}>¿Olvidaste tu contraseña?</Link></p>
+                                            <p className="mt-5 text-center opacity-60 hover:-translate-y-1 ">¿No tienes una cuenta? <Link className="hover:text-red-700 " to={'/register'}>Regístrate</Link></p>
+                                            <p className="mt-5 text-center hover:text-red-700 hover:opacity-100 opacity-60 hover:-translate-y-1 "><Link to={'/recuperar'}>¿Olvidaste tu contraseña?</Link></p>
                                         </div>
 
                                     </form>
@@ -129,7 +141,7 @@ const LoginPage = () => {
             </section>
 
 
-        </LoginLayout>
+        </LoginLayout >
     );
 }
 

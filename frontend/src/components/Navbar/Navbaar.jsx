@@ -1,15 +1,27 @@
 import Cookies from 'universal-cookie';
+import CryptoJS from "crypto-js";
 
-import { Button, Image, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
 import Icon from "../../assets/icon2.png"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import Asident from '../asiden/Asident';
 
 
 
 export const LayoutDashboard = ({ children }) => {
+
+    const navegation = useNavigate()
     const cookies = new Cookies();
     const user = cookies.get('user')
+    let decryptedData;
+    if (user) {
+        const bytes = CryptoJS.AES.decrypt(user, 'hola');
+        decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    }
+    const remover = () => {
+        cookies.remove('user')
+        navegation('/')
+    }
 
 
 
@@ -45,17 +57,45 @@ export const LayoutDashboard = ({ children }) => {
                 </NavbarContent>
                 {!user ?
                     <NavbarItem end >
-                        <Button>
-                            <NavLink to="/login">
+                        <NavLink to="/login">
+                            <Button>
                                 Inicio session
-                            </NavLink>
-                        </Button>
+                            </Button>
+
+                        </NavLink>
                     </NavbarItem>
                     :
                     <NavbarItem>
-                        <Button className="text-white font-light rounded p-2" radius="sm" variant="light">
-                            {user.nombre}
-                        </Button>
+                        <Dropdown>
+                            <NavbarItem>
+                                <DropdownTrigger>
+                                    <Button
+                                        className=" text-white font-semibold text-xl rounded p-2"
+                                        radius="sm"
+                                        variant="light"
+                                    >
+                                        {decryptedData}
+                                    </Button>
+                                </DropdownTrigger>
+                            </NavbarItem>
+                            <DropdownMenu>
+                                <DropdownItem>
+                                    <NavLink end to="/cursos" className={({ isActive }) => isActive ? 'font-bold text-sm rounded p-2' : 'font-light'} >
+                                        Cursos
+                                    </NavLink>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink end to="/asistencia" className={({ isActive }) => isActive ? 'font-bold text-sm p-2' : 'font-light'} >
+                                        Asistencia
+                                    </NavLink>
+                                </DropdownItem>
+                                <DropdownItem >
+                                    <NavLink end to="/" onClick={() => { remover() }} className={({ isActive }) => isActive ? 'font-bold text-sm p-2' : 'font-light'} >
+                                        salir
+                                    </NavLink>
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
                     </NavbarItem>
                 }
 
