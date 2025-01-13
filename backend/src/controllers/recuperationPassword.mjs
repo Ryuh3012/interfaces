@@ -16,11 +16,12 @@ export const recoverPassword = async (req, res) => {
         const token = generateToken({ cedula: user.cedula, expires: '1h' })
 
         const info = await transporter.sendMail({
-            from: '¿Has olvidado tu contraseña? <alejandrojmr03@gmail.com>', // sender address
-            to: user.email, // list of receivers
-            // subject: , // Subject line
-            text: "¿Has olvidado tu contraseña?", // plain text body
-            html: ` <div style="max-width: 600px;
+            from: '¿Has olvidado tu contraseña? <alejandrojmr03@gmail.com>', 
+            to: user.email, 
+            subject: "Correo de recuperacion",
+            text: "¿Has olvidado tu contraseña?", 
+            html: ` 
+            <div style="max-width: 600px;
         margin: 0 auto;
         background-color: #fff;
         padding: 20px;">
@@ -47,7 +48,7 @@ export const recoverPassword = async (req, res) => {
             font-size: 12px;">
             <p>&copy; 2023 Tu Empresa. Todos los derechos reservados.</p>
         </div>
-        </div>`, // html body
+            </div>`, // html body
         })
         return res.status(200).json({
             msg: 'Correo de recuperación enviado',

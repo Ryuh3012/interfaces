@@ -16,8 +16,6 @@ export const verifyToken = (token) => {
     try {
 
         const decoded = jwt.verify(token, tokenPassword)
-        console.log(decoded);
-        return 'hola'
         return { valid: true, expired: false, decoded }
 
     } catch (error) {
