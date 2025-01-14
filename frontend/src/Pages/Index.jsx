@@ -11,11 +11,12 @@ import icon2 from "../assets/semana.webp";
 
 
 const Index = () => {
+
     return (
         <LayoutDashboard>
             <div >
                 <div className="flex">
-                    <section className="flex flex-initial bg-white h-screen ">
+                    <main className="flex flex-initial bg-white h-screen ">
                         <div>
                             <article className="flex flex-col justify-center items-center p-2 ">
                                 <div >
@@ -51,7 +52,7 @@ const Index = () => {
 
 
 
-                    </section>
+                    </main>
                 </div>
             </div>
 

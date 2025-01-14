@@ -10,8 +10,9 @@ export const createpaises = async () => {
 
         const values = await Promise.all([
             connectdb.query(`INSERT INTO paises(pais) VALUES ('Argentina'), ('Bolivia'),('Brasil'), ('Chile'), ('Colombia'),('Ecuador'),('Guyana'),('Perú'),('Surinam'), ('Uruguay');`),
+            connectdb.query(`INSERT INTO roles(rol) VALUES ('Administrador'), ('Blogger'), ('Usuario');`),
+
         ])
-        console.log(values);
     } catch (error) {
         console.log(error);
     }

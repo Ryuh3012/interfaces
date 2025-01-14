@@ -33,6 +33,7 @@ const LoginPage = () => {
                 const { data } = await axios.post('http://localhost:3000/api/auth/singIn', { user: value })
                 if (data?.length !== 0) {
                     const cookis = new Cookies()
+
                     const cripto = CryptoJS.AES.encrypt(JSON.stringify(data.user), 'hola').toString()
 
                     cookis.remove('user')
@@ -80,12 +81,6 @@ const LoginPage = () => {
                                     : null}
 
                                 {message.length !== 0 ?
-                                    <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-success-700 dark:text-success bg-success-50">
-                                        <p>
-                                            {message}
-                                        </p>
-                                    </div>
-                                    : null}   {message.length !== 0 ?
                                     <div className="flex flex-col w-full justify-center items-center py-1 pl-4 text-success-700 dark:text-success bg-success-50">
                                         <p>
                                             {message}

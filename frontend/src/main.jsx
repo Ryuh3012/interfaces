@@ -4,10 +4,15 @@ import { NextUIProvider } from '@nextui-org/react'
 import './index.css'
 import App from './App.jsx'
 
+import { SocketProvider } from './SocketProvider.jsx'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <NextUIProvider>
-      <App />
+      <SocketProvider>
+        <App />
+      </SocketProvider>
     </NextUIProvider>
-  </StrictMode>,
+  </StrictMode>
+
 )

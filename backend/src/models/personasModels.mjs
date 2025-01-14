@@ -1,6 +1,6 @@
 import { connectdb } from "../db/connectdb.mjs"
 
-export const newPersons = async (nacionalidad, cedula, nombre, fecha, apellido, email, paises) => {
+export const newPersons = async ({ nacionalidad, cedula, nombre, fecha, apellido, email, paises }) => {
 
     const query = {
 

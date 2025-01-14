@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { recoverPassword, resetPassword } from "../controllers/recuperationPassword.mjs";
-import { verifytokenMiddleware } from "../middlewares/verifyTokenMilddleware.mjs";
+import { recoverPassword, resetPassword } from "../../controllers/recuperationPassword.mjs";
+import { verifytokenMiddleware } from "../../middlewares/verifyTokenMilddleware.mjs";
 
 
 const route = Router()

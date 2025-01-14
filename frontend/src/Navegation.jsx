@@ -8,6 +8,7 @@ import CambiarContraseña from './Pages/RecuperarContraseña/cambiarContraseña'
 import ContactoPage from './Pages/contacto/ContactoPage';
 import NosotrosPage from './Pages/Nosotros/NosotrosPage';
 import Blog from './Pages/blog/blog';
+import Control from './Pages/Admin/Control';
 
 
 
@@ -22,6 +23,7 @@ const Navegation = () => {
                 <Route element={<LoginPage />} path='/Login' />
                 <Route element={<RegisterPage />} path='/register' />
                 <Route element={<ClavePage />} path='/recuperar' />
+                <Route element={<Control />} path='/admin' />
                 <Route element={<CambiarContraseña />} path='/cambiar' />
                 <Route path="*" element={<Navigate to={'/'} replace={true} />} />
             </Routes>

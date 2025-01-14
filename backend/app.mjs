@@ -1,33 +1,44 @@
 import express from "express";
 import cors from "cors";
+import { createServer } from 'http'
+import { Server } from 'socket.io';
 
 import { port } from "./src/config/config.mjs";
-
 import { connectdb } from "./src/db/connectdb.mjs";
 
-import authRouter from "./src/routers/authRoute.mjs"
-import paisesRouter from "./src/routers/paisesRoute.mjs"
-import newPassword from "./src/routers/recuperationPassword.mjs"
+import index from "./src/router/index.mjs";
+
+
 import { createpaises } from "./src/libs/createpaises.mjs";
 import { createQuestions } from "./src/libs/createTable.mjs";
 
 
 const app = express()
+const server = createServer(app)
+const io = new Server(server, cors({ origin: '*' }))
+
+connectdb.connect()
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-connectdb.connect()
+
 // createQuestions()
-createpaises()
+// createpaises()
 
-app.use(authRouter)
-app.use(paisesRouter)
-app.use(newPassword)
+app.use(index)
 
 
+io.on('connection', (client) => {
 
-app.listen(port, () => {
+    console.log('connect');
 
-    console.log('serve listo :3');
+    client.on('public', (data) => {
+
+
+        client.emit('enviarPublic', data)
+
+    })
 
 })
+
+server.listen(port, () => console.log(`localhost: ${port}`))
