@@ -57,7 +57,7 @@ export const LayoutDashboard = ({ children }) => {
                     <NavbarItem end >
                         <NavLink to="/login">
                             <Button>
-                                Inicio session
+                                Inicio sesión
                             </Button>
 
                         </NavLink>
@@ -77,11 +77,12 @@ export const LayoutDashboard = ({ children }) => {
                                 </DropdownTrigger>
                             </NavbarItem>
                             <DropdownMenu>
-                                <DropdownItem>
+                                {decryptedData[0].rol === "Administrador" ? <DropdownItem>
                                     <NavLink end to="/admin" className={({ isActive }) => isActive ? 'font-bold text-sm rounded p-2' : 'font-light'} >
                                         Control
                                     </NavLink>
-                                </DropdownItem>
+                                </DropdownItem> : null}
+
 
                                 <DropdownItem >
                                     <NavLink end to="/" onClick={() => { remover() }} className={({ isActive }) => isActive ? 'font-bold text-sm p-2' : 'font-light'} >

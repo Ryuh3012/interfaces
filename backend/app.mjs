@@ -21,9 +21,8 @@ connectdb.connect()
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
-
-// createQuestions()
-// createpaises()
+//createQuestions()
+createpaises()
 
 app.use(index)
 
@@ -33,9 +32,8 @@ io.on('connection', (client) => {
     console.log('connect');
 
     client.on('public', (data) => {
-
-
-        client.emit('enviarPublic', data)
+        
+        client.broadcast.emit('enviarPublic', data)
 
     })
 

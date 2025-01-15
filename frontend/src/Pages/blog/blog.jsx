@@ -24,9 +24,10 @@ const Blog = () => {
     const { handleBlur, handleSubmit, handleChange, values: { title, description } } = useFormik({
 
         initialValues,
-        onSubmit: async ({ title, description, }, { resetForm }) => {
+        onSubmit: async (data, { resetForm }) => {
 
             socket.emit('public', { title, description })
+            setPosts([...posts, data])
             return resetForm()
         }
 
@@ -34,7 +35,7 @@ const Blog = () => {
     console.log(decryptedData);
 
     useEffect(() => {
-        socket.on('enviarPublic', (data) => { return setPosts([...posts, data]) })
+        socket.on('enviarPublic', (data) =>  setPosts([...posts, data]) )
     }, [posts]);
 
     return (
@@ -42,7 +43,7 @@ const Blog = () => {
             <div className="w-full">
                 <div className="flex w-full">
                     <main className="flex flex-initial flex-col bg-white h-screen w-full p-2 ">
-                        {decryptedData[0].rol === "Administrador" || decryptedData[0].rol === "Blogger" ? <section className="flex flex-col p-2 w-full shadow-md rounded-lg border-solid border-2 border-slate-200">
+                        {!decryptedData ? null: decryptedData[0].rol === "Administrador" || decryptedData[0].rol === "Blogger" ? <section className="flex flex-col p-2 w-full shadow-md rounded-lg border-solid border-2 border-slate-200">
                             <div className="p-2">
                                 <p className="font-medium text-lg text-left">{decryptedData[0].usuario}</p>
                                 <p className="font-semibold text-2xl text-center">Crear publicación</p>
@@ -79,13 +80,13 @@ const Blog = () => {
                         </section> : null}
 
 
-                        {posts.map(({ title, description }) => (
+                        {posts.map((post, i ) => (
                             <article
-                                key={title}
+                                key={i}
                                 className="flex flex-col w-full p-2 shadow-md rounded-lg border-solid border-2 border-slate-200">
-                                <p className="text-lg font-medium">{title}</p>
+                                <p className="text-lg font-medium">{post.title}</p>
                                 <div className="flex justify-center ">
-                                    <p>{description}</p>
+                                    <p>{post.description}</p>
                                 </div>
                             </article>
 
